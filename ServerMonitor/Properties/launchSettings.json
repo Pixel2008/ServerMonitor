@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ServerMonitor": {
+      "commandName": "Project",
+      "commandLineArgs": "--console",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
