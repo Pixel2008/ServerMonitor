@@ -18,7 +18,7 @@ namespace ServerMonitor.Tests.Validators
         }
 
         [Test]
-        public void WhenMessage_ShouldThrowNothing()
+        public void WhenMessageProvided_ShouldThrowNothing()
         {
             //Arrange
             var message = new MessageBuilder()
@@ -32,7 +32,7 @@ namespace ServerMonitor.Tests.Validators
         }
 
         [Test]
-        public void WhenNoMessage_ShouldThrowArgumentNullException()
+        public void WhenNoMessageProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
             var validator = this.context.Build();
@@ -42,7 +42,7 @@ namespace ServerMonitor.Tests.Validators
         }
 
         [Test]
-        public void WhenMessageWithTitle_ShouldThrowArgumentNullException()
+        public void WhenNoContentProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
             var message = new MessageBuilder()
@@ -55,7 +55,7 @@ namespace ServerMonitor.Tests.Validators
         }
 
         [Test]
-        public void WhenMessageWithContent_ShouldThrowArgumentNullException()
+        public void WhenNoTitleProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
             var message = new MessageBuilder()
