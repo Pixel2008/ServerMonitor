@@ -16,13 +16,13 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentNullException(nameof(partition.Path));
             }
-            if (partition.MinPercentageUsage < AppConsts.PERCENT_MIN)
+            if (partition.MaxPercentageUsage < AppConsts.PERCENT_MIN)
             {
-                throw new ArgumentOutOfRangeException(nameof(partition.MinPercentageUsage), $"Minimum value is {AppConsts.PERCENT_MIN}");
+                throw new ArgumentOutOfRangeException(nameof(partition.MaxPercentageUsage), $"Minimum value is {AppConsts.PERCENT_MIN}");
             }
-            if (partition.MinPercentageUsage > AppConsts.PERCENT_MAX)
+            if (partition.MaxPercentageUsage > AppConsts.PERCENT_MAX)
             {
-                throw new ArgumentOutOfRangeException(nameof(partition.MinPercentageUsage), $"Maximum value is {AppConsts.PERCENT_MAX}");
+                throw new ArgumentOutOfRangeException(nameof(partition.MaxPercentageUsage), $"Maximum value is {AppConsts.PERCENT_MAX}");
             }
         }
     }

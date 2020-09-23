@@ -1,60 +1,49 @@
-﻿using ServerMonitor.Config;
-using System.Collections.Generic;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class MessageNotificationConfigBuilder
-    {
-        private readonly MessageNotificationConfig config;
+    using ServerMonitor.Config;
+    using System.Collections.Generic;
 
-        public MessageNotificationConfigBuilder()
-        {
-            this.config = new MessageNotificationConfig();
-        }
+    internal class MessageNotificationConfigBuilder : BaseBuilder<MessageNotificationConfig>
+    {
         public MessageNotificationConfigBuilder WithDelayStart(int delayStart)
         {
-            this.config.DelayStart = delayStart;
+            this.Obj.DelayStart = delayStart;
             return this;
         }
         public MessageNotificationConfigBuilder WithDisplay(string display)
         {
-            this.config.Display = display;
+            this.Obj.Display = display;
             return this;
         }
 
         public MessageNotificationConfigBuilder WithEnabled(bool enabled)
         {
-            this.config.Enabled = enabled;
+            this.Obj.Enabled = enabled;
             return this;
         }
 
         public MessageNotificationConfigBuilder WithFrom(string from)
         {
-            this.config.From = from;
+            this.Obj.From = from;
             return this;
         }
 
         public MessageNotificationConfigBuilder WithLimit(int limit)
         {
-            this.config.Limit = limit;
+            this.Obj.Limit = limit;
             return this;
         }
 
         public MessageNotificationConfigBuilder WithMessageRecipients(IList<MessageRecipient> recipients)
         {
-            this.config.MessageRecipients = recipients;
+            this.Obj.MessageRecipients = recipients;
             return this;
         }
         
         public MessageNotificationConfigBuilder WithRunInterval(int runInterval)
         {
-            this.config.RunInterval = runInterval;
+            this.Obj.RunInterval = runInterval;
             return this;
-        }
-
-        public MessageNotificationConfig Build()
-        {
-            return this.config;
-        }
+        }       
     }
 }

@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using ServerMonitor.Components;
-using ServerMonitor.Config;
-using ServerMonitor.Converters;
-using ServerMonitor.Validators;
-
-namespace ServerMonitor.Services
+﻿namespace ServerMonitor.Services
 {
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using ServerMonitor.Components;
+    using ServerMonitor.Config;
+    using ServerMonitor.Converters;
+    using ServerMonitor.Validators;
+
     internal class MemoryService : IMemoryService
     {
         #region Members

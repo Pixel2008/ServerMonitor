@@ -1,20 +1,14 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Consts;
-using ServerMonitor.Tests.Builders;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Consts;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+
     [TestFixture]
-    internal class PartitionValidatorTests
-    {
-        private PartitionValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new PartitionValidatorContext();
-        }
-
+    internal class PartitionValidatorTests : BaseTest<PartitionValidator, PartitionValidatorContext>
+    {        
         [Test]
         public void WhenPartitionProvided_ShouldThrowNothing()
         {
@@ -23,7 +17,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPath("path")
                 .WithMinPercentageUsage(AppConsts.PERCENT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(partition), Throws.Nothing);
@@ -33,7 +27,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoPartitionProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -46,7 +40,7 @@ namespace ServerMonitor.Tests.Validators
             var partition = new PartitionBuilder()
                 .WithMinPercentageUsage(AppConsts.PERCENT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -59,7 +53,7 @@ namespace ServerMonitor.Tests.Validators
             var partition = new PartitionBuilder()
                 .WithPath("path")
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -73,7 +67,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPath("path")
                 .WithMinPercentageUsage(AppConsts.PERCENT_MIN - 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -87,7 +81,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPath("path")
                 .WithMinPercentageUsage(AppConsts.PERCENT_MAX + 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);

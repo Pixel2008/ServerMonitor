@@ -1,24 +1,17 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using ServerMonitor.Tests.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
-    internal class DiskDriveConfigValidatorTests
+    internal class DiskDriveConfigValidatorTests : BaseTest<DiskDriveConfigValidator, DiskDriveConfigValidatorContext>
     {
-        private DiskDriveConfigValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new DiskDriveConfigValidatorContext();
-        }
-
         [Test]
         public void WhenDiskDriveConfigProvided_ShouldThrowNothing()
         {
@@ -35,7 +28,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.Nothing);
@@ -45,7 +38,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoDiskDriveConfigProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -66,7 +59,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -88,7 +81,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -110,7 +103,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -126,7 +119,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.ArgumentNullException);
@@ -147,7 +140,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -169,7 +162,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN - 1)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -191,7 +184,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MAX + 1)
                 .WithPartitions(new List<DiskDriveConfig.Partition>() { partition })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());

@@ -1,21 +1,15 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Consts;
-using ServerMonitor.Tests.Builders;
-using System;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Consts;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+    using System;
+
     [TestFixture]
-    internal class SMTPValidatorTests
-    {
-        private SMTPValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new SMTPValidatorContext();
-        }
-
+    internal class SMTPValidatorTests : BaseTest<SMTPValidator, SMTPValidatorContext>
+    {     
         [Test]
         public void WhenSMTPProvided_ShouldThrowNothing()
         {
@@ -25,7 +19,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MIN)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.Nothing);
@@ -35,7 +29,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoSMTPProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -49,7 +43,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MIN)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.ArgumentNullException);
@@ -63,7 +57,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithServer("server")
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -77,7 +71,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MIN - 1)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -92,7 +86,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MAX + 1)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -106,7 +100,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithServer("server")
                 .WithPort(AppConsts.SMTP_PORT_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -120,7 +114,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MIN)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MIN - 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -135,7 +129,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithPort(AppConsts.SMTP_PORT_MIN)
                 .WithTimeout(AppConsts.SMTP_TIMEOUT_MAX + 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());

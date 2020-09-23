@@ -1,22 +1,13 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Tests.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+
     [TestFixture]
-    internal class MessageValidatorTests
-    {
-        private MessageValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new MessageValidatorContext();
-        }
-
+    internal class MessageValidatorTests : BaseTest<MessageValidator, MessageValidatorContext>
+    {      
         [Test]
         public void WhenMessageProvided_ShouldThrowNothing()
         {
@@ -25,7 +16,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithTitle("title")
                 .WithContent("content")
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(message), Throws.Nothing);
@@ -35,7 +26,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoMessageProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -48,7 +39,7 @@ namespace ServerMonitor.Tests.Validators
             var message = new MessageBuilder()
                 .WithTitle("title")
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(message), Throws.ArgumentNullException);
@@ -61,7 +52,7 @@ namespace ServerMonitor.Tests.Validators
             var message = new MessageBuilder()
                 .WithContent("content")
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(message), Throws.ArgumentNullException);

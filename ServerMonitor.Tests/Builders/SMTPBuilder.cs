@@ -1,49 +1,37 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class SMTPBuilder
+    using ServerMonitor.Config;
+
+    internal class SMTPBuilder : BaseBuilder<SMTP>
     {
-        private readonly SMTP smtp;
-
-        public SMTPBuilder()
-        {
-            this.smtp = new SMTP();
-        }
-
         public SMTPBuilder WithServer(string server)
         {
-            this.smtp.Server = server;
+            this.Obj.Server = server;
             return this;
         }
 
         public SMTPBuilder WithPort(int port)
         {
-            this.smtp.Port = port;
+            this.Obj.Port = port;
             return this;
         }
 
         public SMTPBuilder WithUsername(string username)
         {
-            this.smtp.Username = username;
+            this.Obj.Username = username;
             return this;
         }
 
         public SMTPBuilder WithPassword(string password)
         {
-            this.smtp.Password = password;
+            this.Obj.Password = password;
             return this;
         }
 
         public SMTPBuilder WithTimeout(int timeout)
         {
-            this.smtp.Timeout = timeout;
+            this.Obj.Timeout = timeout;
             return this;
-        }
-
-        public SMTP Build()
-        {
-            return this.smtp;
-        }
+        } 
     }
 }

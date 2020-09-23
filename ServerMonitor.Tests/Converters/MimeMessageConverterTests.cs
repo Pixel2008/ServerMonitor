@@ -1,21 +1,17 @@
-﻿using MimeKit;
-using NUnit.Framework;
-using ServerMonitor.Config;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Converters
 {
-    [TestFixture]
-    internal class MimeMessageConverterTests
-    {
-        private MimeMessageConverterContext context;
+    using MimeKit;
+    using NUnit.Framework;
+    using ServerMonitor.Config;
+    using ServerMonitor.Converters;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using System.Collections.Generic;
+    using System.Linq;
 
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new MimeMessageConverterContext();
-        }
+    [TestFixture]
+    internal class MimeMessageConverterTests : BaseTest<MimeMessageConverter, MimeMessageConverterContext>
+    {
         [Test]
         public void WhenMessageWithAppConfigProvided_ShouldReturnMimeMessage()
         {
@@ -26,24 +22,24 @@ namespace ServerMonitor.Tests.Builders
             var display = "FromDisplay";
             var to = "to@mail.pl";
 
+            var messageNotificationConfig = new MessageNotificationConfigBuilder()
+                .WithFrom(from)
+                .WithDisplay(display)
+                .WithMessageRecipients(new List<MessageRecipient>() {
+                        new MessageRecipient{ Address = to } })
+                .Build();            
+
+            var config = new AppConfigBuilder()
+                .WithMessageNotification(messageNotificationConfig)
+                .Build();
+
+            var converter = this.Context
+                .WithAppConfig(config)
+                .Build();
 
             var message = new MessageBuilder()
                 .WithTitle(title)
                 .WithContent(content)
-                .Build();
-
-            var config = new AppConfigBuilder()
-                .WithMessageNotification(new Config.MessageNotificationConfig
-                {
-                    From = from,
-                    Display = display,
-                    MessageRecipients = new List<MessageRecipient>() {
-                        new MessageRecipient{ Address = to } }
-                })
-                .Build();
-
-            var converter = this.context
-                .WithAppConfig(config)
                 .Build();
 
             //Act

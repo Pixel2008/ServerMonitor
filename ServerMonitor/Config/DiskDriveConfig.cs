@@ -9,11 +9,11 @@ namespace ServerMonitor.Config
         internal class Partition
         {
             public string Path { get; set; }
-            public int MinPercentageUsage { get; set; }
+            public int MaxPercentageUsage { get; set; }
 
             public string Debug => $"{GetType().Name}:" +
                 $"{nameof(Path)}:{Path}," +
-                $"{nameof(MinPercentageUsage)}={MinPercentageUsage}";
+                $"{nameof(MaxPercentageUsage)}={MaxPercentageUsage}";
         }
 
         public bool ReportMode { get; set; }

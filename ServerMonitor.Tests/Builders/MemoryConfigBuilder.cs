@@ -1,48 +1,37 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class MemoryConfigBuilder
-    {
-        private readonly MemoryConfig config;
+    using ServerMonitor.Config;
 
-        public MemoryConfigBuilder()
-        {
-            this.config = new MemoryConfig();
-        }
+    internal class MemoryConfigBuilder : BaseBuilder<MemoryConfig>
+    {
         public MemoryConfigBuilder WithDelayStart(int delayStart)
         {
-            this.config.DelayStart = delayStart;
+            this.Obj.DelayStart = delayStart;
             return this;
         }
 
         public MemoryConfigBuilder WithRunInterval(int runInterval)
         {
-            this.config.RunInterval = runInterval;
+            this.Obj.RunInterval = runInterval;
             return this;
         }
 
         public MemoryConfigBuilder WithEnabled(bool enabled)
         {
-            this.config.Enabled = enabled;
+            this.Obj.Enabled = enabled;
             return this;
         }
 
         public MemoryConfigBuilder WithMaxPercentageUsage(int maxPercentageUsage)
         {
-            this.config.MaxPercentageUsage = maxPercentageUsage;
+            this.Obj.MaxPercentageUsage = maxPercentageUsage;
             return this;
         }
 
         public MemoryConfigBuilder WithReportMode(bool reportMode)
         {
-            this.config.ReportMode = reportMode;
+            this.Obj.ReportMode = reportMode;
             return this;
-        }
-
-        public MemoryConfig Build()
-        {
-            return this.config;
         }
     }
 }

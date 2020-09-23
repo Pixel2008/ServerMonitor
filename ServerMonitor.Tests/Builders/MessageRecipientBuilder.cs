@@ -1,24 +1,13 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class MessageRecipientBuilder
-    {
-        private readonly MessageRecipient recipient;
+    using ServerMonitor.Config;
 
-        public MessageRecipientBuilder()
-        {
-            this.recipient = new MessageRecipient();
-        }
+    internal class MessageRecipientBuilder : BaseBuilder<MessageRecipient>
+    {
         public MessageRecipientBuilder WithAddress(string address)
         {
-            this.recipient.Address = address;
+            this.Obj.Address = address;
             return this;
-        }
-
-        public MessageRecipient Build()
-        {
-            return this.recipient;
         }
     }
 }

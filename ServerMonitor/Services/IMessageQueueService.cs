@@ -1,7 +1,7 @@
-﻿using ServerMonitor.Domain;
-
-namespace ServerMonitor.Services
+﻿namespace ServerMonitor.Services
 {
+    using ServerMonitor.Domain;
+
     internal interface IMessageQueueService
     {
         void Enqueue(Message message);

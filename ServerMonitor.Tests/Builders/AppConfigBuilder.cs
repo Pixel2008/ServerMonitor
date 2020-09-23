@@ -1,49 +1,37 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class AppConfigBuilder
+    using ServerMonitor.Config;
+
+    internal class AppConfigBuilder : BaseBuilder<AppConfig>
     {
-        private readonly AppConfig config;
-
-        public AppConfigBuilder()
-        {
-            this.config = new AppConfig();
-        }
-
         public AppConfigBuilder WithTest(bool test)
         {
-            this.config.Test = test;
+            this.Obj.Test = test;
             return this;
         }
 
         public AppConfigBuilder WithDiskDrive(DiskDriveConfig diskDriveConfig)
         {
-            this.config.DiskDrive = diskDriveConfig;
+            this.Obj.DiskDrive = diskDriveConfig;
             return this;
         }
 
         public AppConfigBuilder WithMemory(MemoryConfig memoryConfig)
         {
-            this.config.Memory = memoryConfig;
+            this.Obj.Memory = memoryConfig;
             return this;
         }
 
         public AppConfigBuilder WithMessageNotification(MessageNotificationConfig messageNotificationConfig)
         {
-            this.config.MessageNotification = messageNotificationConfig;
+            this.Obj.MessageNotification = messageNotificationConfig;
             return this;
         }
 
         public AppConfigBuilder WithSMTP(SMTP smtp)
         {
-            this.config.SMTP = smtp;
+            this.Obj.SMTP = smtp;
             return this;
-        }
-
-        public AppConfig Build()
-        {
-            return this.config;
         }
     }
 }

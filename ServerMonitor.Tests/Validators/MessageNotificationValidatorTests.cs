@@ -1,24 +1,17 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using ServerMonitor.Tests.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
-    internal class MessageNotificationValidatorTests
+    internal class MessageNotificationValidatorTests : BaseTest<MessageNotificationValidator, MessageNotificationValidatorContext>
     {
-        private MessageNotificationValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new MessageNotificationValidatorContext();
-        }
-
         [Test]
         public void WhenMessageNotificationConfigProvided_ShouldThrowNothing()
         {
@@ -36,7 +29,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.Nothing);
@@ -46,7 +39,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoMessageNotificationConfigProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -69,7 +62,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
 
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -93,7 +86,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
 
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -116,7 +109,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -138,7 +131,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.ArgumentNullException);
@@ -160,7 +153,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.ArgumentNullException);
@@ -182,7 +175,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -205,7 +198,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -229,7 +222,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
 
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -251,7 +244,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -274,7 +267,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN - 1)
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -298,7 +291,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithMessageRecipients(new List<MessageRecipient>() { recipient })
                 .Build();
 
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -321,7 +314,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithLimit(AppConsts.MESSAGES_LIMIT_MIN)
                 .Build();
 
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.ArgumentNullException);

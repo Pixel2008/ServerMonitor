@@ -1,28 +1,18 @@
-﻿using static ServerMonitor.Config.DiskDriveConfig;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class PartitionBuilder
-    {
-        private readonly Partition partition;
+    using static ServerMonitor.Config.DiskDriveConfig;
 
-        public PartitionBuilder()
-        {
-            this.partition = new Partition();
-        }
+    internal class PartitionBuilder : BaseBuilder<Partition>
+    {
         public PartitionBuilder WithPath(string path)
         {
-            this.partition.Path = path;
+            this.Obj.Path = path;
             return this;
         }
         public PartitionBuilder WithMinPercentageUsage(int minPercentageUsage)
         {
-            this.partition.MinPercentageUsage = minPercentageUsage;
+            this.Obj.MaxPercentageUsage = minPercentageUsage;
             return this;
-        }
-        public Partition Build()
-        {
-            return this.partition;
-        }
+        }        
     }
 }

@@ -1,21 +1,15 @@
-﻿using NUnit.Framework;
-using ServerMonitor.Consts;
-using ServerMonitor.Tests.Builders;
-using System;
-
-namespace ServerMonitor.Tests.Validators
+﻿namespace ServerMonitor.Tests.Validators
 {
+    using NUnit.Framework;
+    using ServerMonitor.Consts;
+    using ServerMonitor.Tests.Builders;
+    using ServerMonitor.Tests.Contexts;
+    using ServerMonitor.Validators;
+    using System;
+
     [TestFixture]
-    internal class MemoryConfigValidatorTests
+    internal class MemoryConfigValidatorTests : BaseTest<MemoryConfigValidator, MemoryConfigValidatorContext>
     {
-        private MemoryConfigValidatorContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            this.context = new MemoryConfigValidatorContext();
-        }
-
         [Test]
         public void WhenMemoryConfigProvided_ShouldThrowNothing()
         {
@@ -27,7 +21,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.Nothing);
@@ -37,7 +31,7 @@ namespace ServerMonitor.Tests.Validators
         public void WhenNoMemoryConfigProvided_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
@@ -53,7 +47,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -70,7 +64,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -87,7 +81,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -103,7 +97,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.Nothing);
@@ -120,7 +114,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -137,7 +131,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -153,7 +147,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithMaxPercentageUsage(AppConsts.PERCENT_MIN)
                 .WithReportMode(true)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -170,7 +164,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MIN - 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -187,7 +181,7 @@ namespace ServerMonitor.Tests.Validators
                 .WithReportMode(true)
                 .WithRunInterval(AppConsts.INTERVAL_MAX + 1)
                 .Build();
-            var validator = this.context.Build();
+            var validator = this.Context.Build();
 
             //Act / Assert
             Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());

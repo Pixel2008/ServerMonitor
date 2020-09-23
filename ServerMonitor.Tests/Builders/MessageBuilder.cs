@@ -1,28 +1,18 @@
-﻿using ServerMonitor.Domain;
-
-namespace ServerMonitor.Tests.Builders
+﻿namespace ServerMonitor.Tests.Builders
 {
-    internal class MessageBuilder
-    {
-        private readonly Message message;
+    using ServerMonitor.Domain;
 
-        public MessageBuilder()
-        {
-            this.message = new Message();
-        }
+    internal class MessageBuilder : BaseBuilder<Message>
+    {
         public MessageBuilder WithTitle(string title)
         {
-            this.message.Title = title;
+            this.Obj.Title = title;
             return this;
         }
         public MessageBuilder WithContent(string content)
         {
-            this.message.Content = content;
+            this.Obj.Content = content;
             return this;
-        }
-        public Message Build()
-        {
-            return this.message;
         }
     }
 }
