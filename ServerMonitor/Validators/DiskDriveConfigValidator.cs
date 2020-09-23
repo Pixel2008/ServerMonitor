@@ -20,21 +20,21 @@ namespace ServerMonitor.Validators
             }
             if (config.Enabled)
             {
-                if (config.DelayStart < TimeConsts.DELAY_MIN)
+                if (config.DelayStart < Consts.AppConsts.DELAY_MIN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Minimum value is {TimeConsts.DELAY_MIN}");
+                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Minimum value is {Consts.AppConsts.DELAY_MIN}");
                 }
-                if (config.DelayStart > TimeConsts.DELAY_MAX)
+                if (config.DelayStart > Consts.AppConsts.DELAY_MAX)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Maximum value is {TimeConsts.DELAY_MAX}");
+                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Maximum value is {Consts.AppConsts.DELAY_MAX}");
                 }
-                if (config.RunInterval < TimeConsts.INTERVAL_MIN)
+                if (config.RunInterval < Consts.AppConsts.INTERVAL_MIN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Minimum value is {TimeConsts.INTERVAL_MIN}");
+                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Minimum value is {Consts.AppConsts.INTERVAL_MIN}");
                 }
-                if (config.RunInterval > TimeConsts.INTERVAL_MAX)
+                if (config.RunInterval > Consts.AppConsts.INTERVAL_MAX)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Maximum value is {TimeConsts.INTERVAL_MAX}");
+                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Maximum value is {Consts.AppConsts.INTERVAL_MAX}");
                 }
                 if (config.Partitions == null || config.Partitions.Count == 0)
                 {

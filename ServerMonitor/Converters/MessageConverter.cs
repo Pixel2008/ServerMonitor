@@ -33,7 +33,7 @@ namespace ServerMonitor.Converters
             var isReady = diskDriveMetrics.IsReady;
             var usage = Math.Round(System.Convert.ToDouble(100 * diskDriveMetrics.Used) / diskDriveMetrics.Total);
 
-            var warning = !isReady || (usage < config.Partitions.FirstOrDefault(x=>x.Path==diskDriveMetrics.Path).MinPercentageUsage);
+            var warning = !isReady || (usage > config.Partitions.FirstOrDefault(x=>x.Path==diskDriveMetrics.Path).MaxPercentageUsage);
             var send = config.ReportMode || warning || test;
 
             if (send)

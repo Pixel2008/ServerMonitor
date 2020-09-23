@@ -1,4 +1,5 @@
 ﻿using ServerMonitor.Config;
+using ServerMonitor.Consts;
 using System;
 
 namespace ServerMonitor.Validators
@@ -15,22 +16,21 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentNullException(nameof(smtp.Server));
             }
-            if (smtp.Port < 1)
+            if (smtp.Port < AppConsts.SMTP_PORT_MIN)
             {
-                throw new ArgumentOutOfRangeException(nameof(smtp.Port), $"Minimum value is 1");
+                throw new ArgumentOutOfRangeException(nameof(smtp.Port), $"Minimum value is {AppConsts.SMTP_PORT_MIN}");
             }
-            if (smtp.Port > 65536)
+            if (smtp.Port > AppConsts.SMTP_PORT_MAX)
             {
-                throw new ArgumentOutOfRangeException(nameof(smtp.Port), $"Maximum value is 65536");
+                throw new ArgumentOutOfRangeException(nameof(smtp.Port), $"Maximum value is {AppConsts.SMTP_PORT_MAX}");
             }
-
-            if (smtp.Timeout < 1)
+            if (smtp.Timeout < AppConsts.SMTP_TIMEOUT_MIN)
             {
-                throw new ArgumentOutOfRangeException(nameof(smtp.Timeout), $"Minimum value is 1");
+                throw new ArgumentOutOfRangeException(nameof(smtp.Timeout), $"Minimum value is {AppConsts.SMTP_TIMEOUT_MIN}");
             }
-            if (smtp.Timeout > 120)
+            if (smtp.Timeout > AppConsts.SMTP_TIMEOUT_MAX)
             {
-                throw new ArgumentOutOfRangeException(nameof(smtp.Timeout), $"Maximum value is 120");
+                throw new ArgumentOutOfRangeException(nameof(smtp.Timeout), $"Maximum value is {AppConsts.SMTP_TIMEOUT_MAX}");
             }
         }
     }

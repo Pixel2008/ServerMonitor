@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using ServerMonitor.Components;
-using ServerMonitor.Domain;
-using System.Collections.Concurrent;
-
-namespace ServerMonitor.Services
+﻿namespace ServerMonitor.Services
 {
+    using Microsoft.Extensions.Logging;
+    using ServerMonitor.Components;
+    using ServerMonitor.Domain;
+    using System.Collections.Concurrent;
+
     internal class MessageQueueService : IMessageQueueService
     {
         #region Members

@@ -1,4 +1,5 @@
 ﻿using ServerMonitor.Config;
+using ServerMonitor.Consts;
 using System;
 
 namespace ServerMonitor.Validators
@@ -15,13 +16,13 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentNullException(nameof(partition.Path));
             }
-            if (partition.MinPercentageUsage < 0)
+            if (partition.MaxPercentageUsage < AppConsts.PERCENT_MIN)
             {
-                throw new ArgumentOutOfRangeException(nameof(partition.MinPercentageUsage), "Minimum value is 0");
+                throw new ArgumentOutOfRangeException(nameof(partition.MaxPercentageUsage), $"Minimum value is {AppConsts.PERCENT_MIN}");
             }
-            if (partition.MinPercentageUsage > 100)
+            if (partition.MaxPercentageUsage > AppConsts.PERCENT_MAX)
             {
-                throw new ArgumentOutOfRangeException(nameof(partition.MinPercentageUsage), "Maximum value is 100");
+                throw new ArgumentOutOfRangeException(nameof(partition.MaxPercentageUsage), $"Maximum value is {AppConsts.PERCENT_MAX}");
             }
         }
     }

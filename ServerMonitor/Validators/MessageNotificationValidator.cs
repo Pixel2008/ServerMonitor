@@ -14,27 +14,27 @@ namespace ServerMonitor.Validators
         }
         public void Validate(MessageNotificationConfig config)
         {
-            if(config == null)
+            if (config == null)
             {
                 throw new ArgumentNullException(nameof(config));
             }
             if (config.Enabled)
             {
-                if (config.DelayStart < TimeConsts.DELAY_MIN)
+                if (config.DelayStart < Consts.AppConsts.DELAY_MIN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Minimum value is {TimeConsts.DELAY_MIN}");
+                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Minimum value is {Consts.AppConsts.DELAY_MIN}");
                 }
-                if (config.DelayStart > TimeConsts.DELAY_MAX)
+                if (config.DelayStart > Consts.AppConsts.DELAY_MAX)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Maximum value is {TimeConsts.DELAY_MAX}");
+                    throw new ArgumentOutOfRangeException(nameof(config.DelayStart), $"Maximum value is {Consts.AppConsts.DELAY_MAX}");
                 }
-                if (config.RunInterval < TimeConsts.INTERVAL_MIN)
+                if (config.RunInterval < Consts.AppConsts.INTERVAL_MIN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Minimum value is {TimeConsts.INTERVAL_MIN}");
+                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Minimum value is {Consts.AppConsts.INTERVAL_MIN}");
                 }
-                if (config.RunInterval > TimeConsts.INTERVAL_MAX)
+                if (config.RunInterval > Consts.AppConsts.INTERVAL_MAX)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Maximum value is {TimeConsts.INTERVAL_MAX}");
+                    throw new ArgumentOutOfRangeException(nameof(config.RunInterval), $"Maximum value is {Consts.AppConsts.INTERVAL_MAX}");
                 }
                 if (string.IsNullOrWhiteSpace(config.From))
                 {
@@ -44,13 +44,13 @@ namespace ServerMonitor.Validators
                 {
                     throw new ArgumentNullException(nameof(config.Display));
                 }
-                if (config.Limit < 1)
+                if (config.Limit < AppConsts.MESSAGES_LIMIT_MIN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.Limit), $"Minimum value is 1");
+                    throw new ArgumentOutOfRangeException(nameof(config.Limit), $"Minimum value is {AppConsts.MESSAGES_LIMIT_MIN}");
                 }
-                if (config.Limit > 100)
+                if (config.Limit > AppConsts.MESSAGES_LIMIT_MAX)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(config.Limit), $"Maximum value is 100");
+                    throw new ArgumentOutOfRangeException(nameof(config.Limit), $"Maximum value is {AppConsts.MESSAGES_LIMIT_MAX}");
                 }
                 if (config.MessageRecipients == null || config.MessageRecipients.Count == 0)
                 {

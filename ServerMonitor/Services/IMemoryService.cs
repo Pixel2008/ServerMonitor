@@ -1,7 +1,7 @@
-﻿using ServerMonitor.Core;
-
-namespace ServerMonitor.Services
+﻿namespace ServerMonitor.Services
 {
+    using ServerMonitor.Core;
+
     interface IMemoryService : IService
     {
     }
