@@ -15,6 +15,7 @@ namespace ServerMonitor.Core
         private readonly IOptions<AppConfig> config;
         private readonly ILogger<T> logger;
         private Timer timer;
+        private bool busy;
         #endregion
 
         #region .ctor
@@ -45,7 +46,7 @@ namespace ServerMonitor.Core
                     delay = testMode ? 5 : 2;
                 }
 
-                this.logger.LogInformation($"Start Enabled={enabled.ToString()} Delay={delay}sec. Interval={interval}min.");
+                this.logger.LogInformation($"Start Enabled={enabled.ToString()} Delay={delay}sec. Interval={interval}sec.");
 
                 if (enabled)
                 {
@@ -61,8 +62,15 @@ namespace ServerMonitor.Core
         private void DoWork(object state)
         {
             this.logger.LogDebug($"Working");
+            if(this.busy)
+            {
+                this.logger.LogDebug("Busy, Quit");
+                return;
+            }
             try
             {
+                this.busy = true;
+
                 this.service.DoWork();
             }
             catch (Exception ex)
@@ -72,6 +80,7 @@ namespace ServerMonitor.Core
             finally
             {
                 this.logger.LogDebug("Done");
+                this.busy = false;
             }
         }
 
