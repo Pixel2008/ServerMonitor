@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System.Threading.Tasks;
+
     internal interface ISMTPValidator
     {
-        void Validate(SMTP smtp);
+        Task ValidateAsync(SMTP smtp);
     }
 }

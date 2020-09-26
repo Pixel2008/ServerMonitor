@@ -1,10 +1,11 @@
-﻿using MimeKit;
-using ServerMonitor.Domain;
-
-namespace ServerMonitor.Converters
+﻿namespace ServerMonitor.Converters
 {
+    using MimeKit;
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IMimeMessageConverter
     {
-        MimeMessage Get(Message message);
+        Task<MimeMessage> GetAsync(Message message);
     }
 }

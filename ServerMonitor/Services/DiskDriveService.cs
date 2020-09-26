@@ -6,6 +6,7 @@
     using ServerMonitor.Config;
     using ServerMonitor.Converters;
     using ServerMonitor.Validators;
+    using System.Threading.Tasks;
 
     internal class DiskDriveService : IDiskDriveService
     {
@@ -35,26 +36,26 @@
         public double Interval => this.config.Value.DiskDrive.RunInterval;
         public double Delay => this.config.Value.DiskDrive.DelayStart;
 
-        public void DoWork()
+        public async Task DoWorkAsync()
         {
             foreach (var partition in this.config.Value.DiskDrive.Partitions)
             {
                 logger.LogDebug(partition.Debug);
 
-                var metrics = this.diskDriveInfo.GetDiskDriveMetrics(partition);
+                var metrics = await this.diskDriveInfo.GetDiskDriveMetricsAsync(partition);
 
-                var message = this.messageConverter.Get(metrics);
+                var message = await this.messageConverter.GetAsync(metrics);
 
                 if (message != null)
                 {
-                    this.messageQueueService.Enqueue(message);
+                    await this.messageQueueService.EnqueueAsync(message);
                 }
             }
         }
 
-        public void Validate()
+        public async Task ValidateAsync()
         {
-            this.diskDriveConfigValidator.Validate(this.config?.Value?.DiskDrive);
+            await this.diskDriveConfigValidator.ValidateAsync(this.config?.Value?.DiskDrive);
         }
         #endregion
     }

@@ -19,7 +19,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(recipient), Throws.Nothing);
+            Assert.That(() => validator.ValidateAsync(recipient), Throws.Nothing);
         }
 
         [Test]
@@ -29,7 +29,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -41,7 +41,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(recipient), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(recipient), Throws.ArgumentNullException);
         }
     }
 }

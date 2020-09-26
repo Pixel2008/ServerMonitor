@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Domain;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IMessageDecorator
     {
-        Message GetMessage(Message message); 
+        Task<Message> GetMessageAsync(Message message); 
     }
 }

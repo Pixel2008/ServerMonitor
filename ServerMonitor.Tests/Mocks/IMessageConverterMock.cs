@@ -11,39 +11,39 @@
         public void Mock_Get(Expression<Func<DiskDriveMetrics, bool>> match, Message response)
         {
             this.Mock
-                .Setup(x => x.Get(It.Is(match)))
-                .Returns(response);
+                .Setup(x => x.GetAsync(It.Is(match)))
+                .ReturnsAsync(response);
         }
 
         public void Mock_Get(Expression<Func<MemoryMetrics, bool>> match, Message response)
         {
             this.Mock
-                .Setup(x => x.Get(It.Is(match)))
-                .Returns(response);
+                .Setup(x => x.GetAsync(It.Is(match)))
+                .ReturnsAsync(response);
         }
 
         public void Verify_GetCalled(Expression<Func<DiskDriveMetrics, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.Get(It.Is(match)), times);
+                .Verify(x => x.GetAsync(It.Is(match)), times);
         }
 
         public void Verify_GetCalledForDiskDriveMetrics(Times times)
         {
             this.Mock
-                .Verify(x => x.Get(It.IsAny<DiskDriveMetrics>()), times);
+                .Verify(x => x.GetAsync(It.IsAny<DiskDriveMetrics>()), times);
         }
 
         public void Verify_GetCalled(Expression<Func<MemoryMetrics, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.Get(It.Is(match)), times);
+                .Verify(x => x.GetAsync(It.Is(match)), times);
         }
 
         public void Verify_GetCalledForMemoryMetrics(Times times)
         {
             this.Mock
-                .Verify(x => x.Get(It.IsAny<MemoryMetrics>()), times);
+                .Verify(x => x.GetAsync(It.IsAny<MemoryMetrics>()), times);
         }
     }
 }

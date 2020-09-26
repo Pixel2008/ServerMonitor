@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System.Threading.Tasks;
+
     internal interface IMemoryConfigValidator
     {
-        void Validate(MemoryConfig memoryConfig);
+        Task ValidateAsync(MemoryConfig memoryConfig);
     }
 }

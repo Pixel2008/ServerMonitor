@@ -22,7 +22,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.Nothing);
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.Nothing);
         }
 
         [Test]
@@ -32,7 +32,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -46,7 +46,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -60,7 +60,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
         [Test]
         public void WhenPortLTProvided_ShouldThrowArgumentNullException()
@@ -74,7 +74,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -89,7 +89,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -103,7 +103,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
         [Test]
         public void WhenTimeoutLTProvided_ShouldThrowArgumentNullException()
@@ -117,7 +117,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -132,7 +132,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(smtp), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
     }
 }

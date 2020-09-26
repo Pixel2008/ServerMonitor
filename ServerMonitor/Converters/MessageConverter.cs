@@ -1,17 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using ServerMonitor.Config;
-using ServerMonitor.Domain;
-using ServerMonitor.Extensions;
-using ServerMonitor.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ServerMonitor.Tests")]
 namespace ServerMonitor.Converters
 {
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using ServerMonitor.Config;
+    using ServerMonitor.Domain;
+    using ServerMonitor.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     internal class MessageConverter : IMessageConverter
     {
         private readonly IOptions<AppConfig> config;
@@ -23,8 +24,13 @@ namespace ServerMonitor.Converters
             this.logger = logger;
         }
 
-        public Message Get(DiskDriveMetrics diskDriveMetrics)
+        public Task<Message> GetAsync(DiskDriveMetrics diskDriveMetrics)
         {
+            if (diskDriveMetrics == null)
+            {
+                throw new NullReferenceException(nameof(diskDriveMetrics));
+            }
+
             var test = this.config.Value.Test;
             var config = this.config.Value.DiskDrive;
 
@@ -33,8 +39,10 @@ namespace ServerMonitor.Converters
             var isReady = diskDriveMetrics.IsReady;
             var usage = Math.Round(System.Convert.ToDouble(100 * diskDriveMetrics.Used) / diskDriveMetrics.Total);
 
-            var warning = !isReady || (usage > config.Partitions.FirstOrDefault(x=>x.Path==diskDriveMetrics.Path).MaxPercentageUsage);
+            var warning = !isReady || (usage > config.Partitions.FirstOrDefault(x => x.Path == diskDriveMetrics.Path).MaxPercentageUsage);
             var send = config.ReportMode || warning || test;
+
+            Message message = null;
 
             if (send)
             {
@@ -59,13 +67,18 @@ namespace ServerMonitor.Converters
                 {
                     content = $"Drive {path} is not ready!";
                 }
-                return new Message { Title = title, Content = content };
+                message = new Message { Title = title, Content = content };
             }
-            return null;
+            return Task.FromResult(message);
         }
 
-        public Message Get(MemoryMetrics memoryMetrics)
+        public Task<Message> GetAsync(MemoryMetrics memoryMetrics)
         {
+            if(memoryMetrics == null)
+            {
+                throw new NullReferenceException(nameof(memoryMetrics));
+            }
+
             var test = this.config.Value.Test;
             var config = this.config.Value.Memory;
 
@@ -76,6 +89,7 @@ namespace ServerMonitor.Converters
             var warning = usage > maxPercentageUsage;
             var send = config.ReportMode || warning || test;
 
+            Message message = null;
             if (send)
             {
                 var title = (warning ? "Warning - " : "") + "RAM Memory";
@@ -90,9 +104,9 @@ namespace ServerMonitor.Converters
                 lines.Add($"Total: {memoryMetrics.Total.BytesToString()}");
                 lines.Add($"Used: {memoryMetrics.Used.BytesToString()}");
                 lines.Add($"Free: {memoryMetrics.Free.BytesToString()}");
-                return new Message { Title = title, Content = string.Join(nl, lines) };
+                message = new Message { Title = title, Content = string.Join(nl, lines) };
             }
-            return null;
+            return Task.FromResult(message);
         }
     }
 }

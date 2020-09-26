@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System.Threading.Tasks;
+
     internal interface IMessageNotificationValidator
     {
-        void Validate(MessageNotificationConfig config);
+        Task ValidateAsync(MessageNotificationConfig config);
     }
 }

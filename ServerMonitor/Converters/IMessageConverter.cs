@@ -1,10 +1,11 @@
-﻿using ServerMonitor.Domain;
-
-namespace ServerMonitor.Converters
+﻿namespace ServerMonitor.Converters
 {
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IMessageConverter
     {
-        Message Get(DiskDriveMetrics diskDriveMetrics);
-        Message Get(MemoryMetrics memoryMetrics);
+        Task<Message> GetAsync(DiskDriveMetrics diskDriveMetrics);
+        Task<Message> GetAsync(MemoryMetrics memoryMetrics);
     }
 }

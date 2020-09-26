@@ -11,25 +11,25 @@
         public void Mock_SendMessage()
         {
             this.Mock
-                .Setup(x => x.SendMessage(It.IsAny<Message>()));
+                .Setup(x => x.SendMessageAsync(It.IsAny<Message>()));
         }
 
         public void Mock_SendMessage(Expression<Func<Message, bool>> match)
         {
             this.Mock
-                .Setup(x => x.SendMessage(It.Is(match)));
+                .Setup(x => x.SendMessageAsync(It.Is(match)));
         }
 
         public void Veirfy_SendMessageCalled(Times times)
         {
             this.Mock
-                .Verify(x => x.SendMessage(It.IsAny<Message>()), times);
+                .Verify(x => x.SendMessageAsync(It.IsAny<Message>()), times);
         }
 
         public void Verify_SendMessageCalled(Expression<Func<Message, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.SendMessage(It.Is(match)), times);
+                .Verify(x => x.SendMessageAsync(It.Is(match)), times);
         }
     }
 }

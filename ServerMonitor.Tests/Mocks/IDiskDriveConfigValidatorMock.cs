@@ -11,12 +11,12 @@
         public void Mock_Validate(DiskDriveConfig config)
         {
             this.Mock
-                .Setup(x => x.Validate(config));
+                .Setup(x => x.ValidateAsync(config));
         }
         public void Verify_ValidateCalled(Expression<Func<DiskDriveConfig, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.Validate(It.Is(match)), times);
+                .Verify(x => x.ValidateAsync(It.Is(match)), times);
         }      
     }
 }

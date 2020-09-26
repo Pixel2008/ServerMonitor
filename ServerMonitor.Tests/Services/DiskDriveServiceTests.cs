@@ -11,12 +11,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class DiskDriveServiceTests : BaseTest<DiskDriveService, DiskDriveServiceContext>
     {
         [Test]
-        public void ValidationShouldBeExecutedOnce()
+        public async Task ValidationShouldBeExecutedOnce()
         {
             //Arrange
             var path = @"c:\";
@@ -33,14 +34,14 @@
             var service = this.Context.Build();
 
             //Act
-            service.Validate();
+            await service.ValidateAsync();
 
             //Assert
             this.Context.DiskDriveConfigValidatorMock.Verify_ValidateCalled(x => x.Enabled == true && x.Partitions.First().Path == path, Times.Once());
         }
 
         [Test]
-        public void WhenNoPartitionsProvided_ShouldRunWithoutDoingAnything()
+        public async Task WhenNoPartitionsProvided_ShouldRunWithoutDoingAnything()
         {
             //Arrange
             var diskDriveConfig = new DiskDriveConfigBuilder()
@@ -56,7 +57,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert
             this.Context.DiskDriveInfoMock.Verify_GetDiskDriveMetricsCalled(Times.Never());
@@ -65,7 +66,7 @@
         }
 
         [Test]
-        public void WhenPartitionProvidedAndNoMessageReturn_ShouldNotQueueMessage()
+        public async Task WhenPartitionProvidedAndNoMessageReturn_ShouldNotQueueMessage()
         {
             //Arrange
             var total = 100;
@@ -95,7 +96,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert
             this.Context.DiskDriveInfoMock.Verify_GetDiskDriveMetricsCalled(x => x.Path == path && x.MaxPercentageUsage == maxPercentageUsage, Times.Once());
@@ -104,7 +105,7 @@
         }
 
         [Test]
-        public void WhenPartitionProvided_ShouldQueueMessage()
+        public async Task WhenPartitionProvided_ShouldQueueMessage()
         {
             //Arrange
             var total = 100;
@@ -140,7 +141,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert
             this.Context.DiskDriveInfoMock.Verify_GetDiskDriveMetricsCalled(x => x.Path == path && x.MaxPercentageUsage == maxPercentageUsage, Times.Once());

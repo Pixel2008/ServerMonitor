@@ -1,13 +1,20 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Domain;
-using System.IO;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Domain;
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
+
     internal class DiskDriveInfo : IDiskDriveInfo
     {
-        public DiskDriveMetrics GetDiskDriveMetrics(DiskDriveConfig.Partition partition)
+        public Task<DiskDriveMetrics> GetDiskDriveMetricsAsync(DiskDriveConfig.Partition partition)
         {
+            if (partition == null)
+            {
+                throw new NullReferenceException(nameof(partition));
+            }
+
             DriveInfo di = new DriveInfo(partition.Path);
 
             var metrics = new DiskDriveMetrics()
@@ -22,7 +29,7 @@ namespace ServerMonitor.Components
                 metrics.Free = di.AvailableFreeSpace;
             }
 
-            return metrics;
+            return Task.FromResult(metrics);
         }
     }
 }

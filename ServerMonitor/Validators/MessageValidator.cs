@@ -1,13 +1,15 @@
-﻿using ServerMonitor.Domain;
-using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ServerMonitor.Tests")]
 namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Domain;
+    using System;    
+    using System.Threading.Tasks;
+
     internal class MessageValidator : IMessageValidator
     {
-        public void Validate(Message message)
+        public Task ValidateAsync(Message message)
         {
             if (message == null)
             {
@@ -23,6 +25,7 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentNullException(nameof(message.Content));
             }
+            return Task.CompletedTask;
         }
     }
 }

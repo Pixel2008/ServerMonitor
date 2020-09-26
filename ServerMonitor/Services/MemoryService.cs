@@ -6,6 +6,7 @@
     using ServerMonitor.Config;
     using ServerMonitor.Converters;
     using ServerMonitor.Validators;
+    using System.Threading.Tasks;
 
     internal class MemoryService : IMemoryService
     {
@@ -35,23 +36,23 @@
         public double Interval => this.config.Value.Memory.RunInterval;
         public double Delay => this.config.Value.Memory.DelayStart;
 
-        public void DoWork()
+        public async Task DoWorkAsync()
         {
-            var memory = this.memoryInfo.GetMemoryMetrics();
+            var memory = await this.memoryInfo.GetMemoryMetricsAsync();
 
             this.logger.LogDebug(memory.Debug);
 
-            var message = this.messageConverter.Get(memory);
+            var message = await this.messageConverter.GetAsync(memory);
 
             if (message != null)
             {
-                this.messageQueue.Enqueue(message);
+                await this.messageQueue.EnqueueAsync(message);
             }
         }
 
-        public void Validate()
+        public async Task ValidateAsync()
         {
-            this.memoryConfigValidator.Validate(this.config?.Value?.Memory);
+            await this.memoryConfigValidator.ValidateAsync(this.config?.Value?.Memory);
         }
         #endregion
     }

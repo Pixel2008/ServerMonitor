@@ -1,14 +1,15 @@
-﻿using MailKit.Net.Smtp;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using ServerMonitor.Converters;
-using ServerMonitor.Config;
-using ServerMonitor.Domain;
-using System;
-using ServerMonitor.Validators;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using MailKit.Net.Smtp;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using ServerMonitor.Converters;
+    using ServerMonitor.Config;
+    using ServerMonitor.Domain;
+    using System;
+    using ServerMonitor.Validators;
+    using System.Threading.Tasks;
+
     internal class MessageSender : IMessageSender
     {
         #region Members
@@ -29,42 +30,40 @@ namespace ServerMonitor.Components
         #endregion
 
         #region Methods
-        public void SendMessage(Message message)
+        public async Task SendMessageAsync(Message message)
         {
+            if (message == null)
+            {
+                throw new NullReferenceException(nameof(message));
+            }
+
+            var config = this.config?.Value?.SMTP;
+
+            await this.smtpValidator.ValidateAsync(config);
+
+            this.logger.LogDebug($"{config.Debug} {message.Debug}");
+
+            using var client = new SmtpClient
+            {
+                ServerCertificateValidationCallback = (s, c, h, e) => true,
+                Timeout = config.Timeout * 1000
+            };
+
+            var msg = await this.mimeMessageConverter.GetAsync(message);
+            if (this.config.Value.Test)
+            {
+                msg.Subject = $"TEST - " + msg.Subject;
+            }
+
+            await client.ConnectAsync(config.Server, config.Port, MailKit.Security.SecureSocketOptions.Auto);
             try
             {
-                var config = this.config?.Value?.SMTP;
-
-                this.smtpValidator.Validate(config);                                
-
-                this.logger.LogDebug($"{config.Debug} {message.Debug}");
-
-                using var client = new SmtpClient
-                {
-                    ServerCertificateValidationCallback = (s, c, h, e) => true,
-                    Timeout = config.Timeout * 1000
-                };
-
-                var msg = this.mimeMessageConverter.Get(message);
-                if(this.config.Value.Test)
-                {
-                    msg.Subject = $"TEST - " + msg.Subject;
-                }
-
-                client.Connect(config.Server, config.Port, MailKit.Security.SecureSocketOptions.Auto);
-                try
-                {
-                    client.Authenticate(config.Username, config.Password);
-                    client.Send(msg);
-                }
-                finally
-                {
-                    client.Disconnect(true);
-                }
+                await client.AuthenticateAsync(config.Username, config.Password);
+                await client.SendAsync(msg);
             }
-            catch (Exception ex)
+            finally
             {
-                this.logger.LogCritical(ex, $"An exception occured while sending mail: {message.Title}.");
+                await client.DisconnectAsync(true);
             }
         }
         #endregion

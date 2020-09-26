@@ -8,6 +8,7 @@
     using ServerMonitor.Tests.Contexts;
     using System;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class MemoryServiceTests : BaseTest<MemoryService, MemoryServiceContext>
@@ -30,7 +31,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.Validate();
+            service.ValidateAsync();
 
             //Assert
             this.Context.MemoryConfigValidatorMock.Verify_ValidateCalled(x => x.Enabled == true && x.MaxPercentageUsage == maxPercentageUsage, Times.Once());
@@ -64,7 +65,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            service.DoWorkAsync();
 
             //Assert            
             this.Context.MemoryInfoMock.Verify_GetMemoryMetricsCalled(Times.Once());
@@ -73,7 +74,7 @@
         }
 
         [Test]
-        public void WhenMessageReturned_ShouldEnqueue()
+        public async Task WhenMessageReturned_ShouldEnqueue()
         {
             //Arrange
             var maxPercentageUsage = 30;
@@ -107,7 +108,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert            
             this.Context.MemoryInfoMock.Verify_GetMemoryMetricsCalled(Times.Once());

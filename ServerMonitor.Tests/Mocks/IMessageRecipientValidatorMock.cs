@@ -11,12 +11,12 @@
         public void Mock_Validate()
         {
             this.Mock
-                .Setup(x => x.Validate(It.IsAny<MessageRecipient>()));
+                .Setup(x => x.ValidateAsync(It.IsAny<MessageRecipient>()));
         }
         public void Verify_ValidateCalled(Expression<Func<MessageRecipient, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.Validate(It.Is(match)), times);
+                .Verify(x => x.ValidateAsync(It.Is(match)), times);
         }
     }
 }

@@ -11,25 +11,25 @@
         public void Mock_Validate(Expression<Func<MessageNotificationConfig, bool>> match)
         {
             this.Mock
-                .Setup(x => x.Validate(It.Is(match)));
+                .Setup(x => x.ValidateAsync(It.Is(match)));
         }
 
         public void Mock_Validate()
         {
             this.Mock
-                .Setup(x => x.Validate(It.IsAny<MessageNotificationConfig>()));
+                .Setup(x => x.ValidateAsync(It.IsAny<MessageNotificationConfig>()));
         }
 
         public void Verify_ValidateCalled(Times times)
         {
             this.Mock
-                .Verify(x => x.Validate(It.IsAny<MessageNotificationConfig>()), times);
+                .Verify(x => x.ValidateAsync(It.IsAny<MessageNotificationConfig>()), times);
         }
 
         public void Verify_ValidateCalled(Expression<Func<MessageNotificationConfig, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.Validate(It.Is(match)), times);
+                .Verify(x => x.ValidateAsync(It.Is(match)), times);
         }
     }
 }

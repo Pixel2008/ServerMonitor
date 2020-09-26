@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Domain;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IMessageSender
     {
-        void SendMessage(Message mail);
+        Task SendMessageAsync(Message mail);
     }
 }

@@ -1,15 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MimeKit;
-using ServerMonitor.Config;
-using ServerMonitor.Domain;
-using ServerMonitor.Validators;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ServerMonitor.Tests")]
 namespace ServerMonitor.Converters
 {
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using MimeKit;
+    using ServerMonitor.Config;
+    using ServerMonitor.Domain;
+    using ServerMonitor.Validators;
+    using System;
+    using System.Text;
+    using System.Threading.Tasks;
+
     internal class MimeMessageConverter : IMimeMessageConverter
     {
         private readonly IOptions<AppConfig> config;
@@ -23,11 +26,16 @@ namespace ServerMonitor.Converters
             this.logger = logger;
         }
 
-        public MimeMessage Get(Message message)
+        public async Task<MimeMessage> GetAsync(Message message)
         {
+            if (message == null)
+            {
+                throw new NullReferenceException(nameof(message));
+            }
+
             this.logger.LogDebug(message.Debug);
 
-            this.messageValidator.Validate(message);
+            await this.messageValidator.ValidateAsync(message);
                         
             var mimeMessage = new MimeMessage
             {
