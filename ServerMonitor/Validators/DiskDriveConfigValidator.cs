@@ -1,9 +1,9 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System;
+    using System.Threading.Tasks;
+
     internal class DiskDriveConfigValidator : IDiskDriveConfigValidator
     {
         private readonly IPartitionValidator partitionValidator;
@@ -12,7 +12,7 @@ namespace ServerMonitor.Validators
         {
             this.partitionValidator = partitionValidator;
         }
-        public void Validate(DiskDriveConfig config)
+        public async Task ValidateAsync(DiskDriveConfig config)
         {
             if (config == null)
             {
@@ -42,9 +42,9 @@ namespace ServerMonitor.Validators
                 }
                 foreach (var partition in config.Partitions)
                 {
-                    this.partitionValidator.Validate(partition);
+                    await this.partitionValidator.ValidateAsync(partition);
                 }
-            }
+            }            
         }
     }
 }

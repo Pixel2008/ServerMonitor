@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using System;
+    using System.Threading.Tasks;
+
     internal class MessageNotificationValidator : IMessageNotificationValidator
     {
         private readonly IMessageRecipientValidator messageRecipientValidator;
@@ -11,8 +12,9 @@ namespace ServerMonitor.Validators
         public MessageNotificationValidator(IMessageRecipientValidator messageRecipientValidator)
         {
             this.messageRecipientValidator = messageRecipientValidator;
+    
         }
-        public void Validate(MessageNotificationConfig config)
+        public async Task ValidateAsync(MessageNotificationConfig config)
         {
             if (config == null)
             {
@@ -58,7 +60,7 @@ namespace ServerMonitor.Validators
                 }
                 foreach (var messageRecipient in config.MessageRecipients)
                 {
-                    this.messageRecipientValidator.Validate(messageRecipient);
+                    await this.messageRecipientValidator.ValidateAsync(messageRecipient);
                 }
             }
         }

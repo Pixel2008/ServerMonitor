@@ -1,10 +1,11 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Domain;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IDiskDriveInfo
     {
-        DiskDriveMetrics GetDiskDriveMetrics(DiskDriveConfig.Partition partition);
+        Task<DiskDriveMetrics> GetDiskDriveMetricsAsync(DiskDriveConfig.Partition partition);
     }
 }

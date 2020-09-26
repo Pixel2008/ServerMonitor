@@ -1,23 +1,24 @@
-﻿using ServerMonitor.Domain;
-using ServerMonitor.Tools;
-using System;
-using System.Diagnostics;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Domain;
+    using ServerMonitor.Tools;
+    using System;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+
     internal class MemoryInfo : IMemoryInfo
     {
-        public MemoryMetrics GetMemoryMetrics()
+        public Task<MemoryMetrics> GetMemoryMetricsAsync()
         {
             if (OS.IsWindows())
-                return WindowsMetrics();
+                return WindowsMetricsAsync();
             else if (OS.IsLinux())
-                return LinuxMetrics();
+                return LinuxMetricsAsync();
             else
                 throw new NotSupportedException("OS not supported!");
         }
 
-        private MemoryMetrics WindowsMetrics()
+        private Task<MemoryMetrics> WindowsMetricsAsync()
         {
             var processInfo = new ProcessStartInfo
             {
@@ -37,10 +38,10 @@ namespace ServerMonitor.Components
                 Total = double.Parse(lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries)[1])*1024                
             };
 
-            return metrics;
+            return Task.FromResult(metrics);
         }
 
-        private MemoryMetrics LinuxMetrics()
+        private Task<MemoryMetrics> LinuxMetricsAsync()
         {
             var processInfo = new ProcessStartInfo("free -m")
             {
@@ -61,7 +62,7 @@ namespace ServerMonitor.Components
                 Free = double.Parse(memory[3])
             };
 
-            return metrics;
+            return Task.FromResult(metrics);
         }
     }
 }

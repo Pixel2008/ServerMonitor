@@ -9,14 +9,14 @@
         public void Mock_GetMemoryMetrics(MemoryMetrics response)
         {
             this.Mock
-                .Setup(x => x.GetMemoryMetrics())
-                .Returns(response);
+                .Setup(x => x.GetMemoryMetricsAsync())
+                .ReturnsAsync(response);
         }
 
         public void Verify_GetMemoryMetricsCalled(Times times)
         {
             this.Mock
-                .Verify(x => x.GetMemoryMetrics(), times);
+                .Verify(x => x.GetMemoryMetricsAsync(), times);
         }
     }
 }

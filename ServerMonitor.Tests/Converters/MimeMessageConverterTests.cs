@@ -8,12 +8,13 @@
     using ServerMonitor.Tests.Contexts;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class MimeMessageConverterTests : BaseTest<MimeMessageConverter, MimeMessageConverterContext>
     {
         [Test]
-        public void WhenMessageWithAppConfigProvided_ShouldReturnMimeMessage()
+        public async Task WhenMessageWithAppConfigProvided_ShouldReturnMimeMessage()
         {
             //Arrange
             var title = "title";
@@ -43,7 +44,7 @@
                 .Build();
 
             //Act
-            var mimeMessage = converter.Get(message);
+            var mimeMessage = await converter.GetAsync(message);
 
             //Assert
             Assert.Multiple(() =>

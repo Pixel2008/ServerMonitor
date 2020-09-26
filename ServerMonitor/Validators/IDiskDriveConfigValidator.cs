@@ -1,9 +1,10 @@
-﻿using ServerMonitor.Config;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System.Threading.Tasks;
+
     internal interface IDiskDriveConfigValidator
     {
-        void Validate(DiskDriveConfig diskDriveConfig);
+        Task ValidateAsync(DiskDriveConfig diskDriveConfig);
     }
 }

@@ -11,27 +11,27 @@
         public void Mock_GetMessage(Message response)
         {
             this.Mock
-                .Setup(x => x.GetMessage(It.IsAny<Message>()))
-                .Returns(response);
+                .Setup(x => x.GetMessageAsync(It.IsAny<Message>()))
+                .ReturnsAsync(response);
         }
 
         public void Mock_GetMessage(Expression<Func<Message, bool>> match, Message response)
         {
             this.Mock
-                .Setup(x => x.GetMessage(It.Is(match)))
-                .Returns(response);
+                .Setup(x => x.GetMessageAsync(It.Is(match)))
+                .ReturnsAsync(response);
         }
 
         public void Verify_GetMessageCalled(Times times)
         {
             this.Mock
-                .Verify(x => x.GetMessage(It.IsAny<Message>()), times);
+                .Verify(x => x.GetMessageAsync(It.IsAny<Message>()), times);
         }
 
         public void Verify_GetMessageCalled(Expression<Func<Message, bool>> match, Times times)
         {
             this.Mock
-                .Verify(x => x.GetMessage(It.Is(match)), times);
+                .Verify(x => x.GetMessageAsync(It.Is(match)), times);
         }
     }
 }

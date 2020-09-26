@@ -1,11 +1,13 @@
-﻿using ServerMonitor.Domain;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ServerMonitor.Tests")]
 namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Domain;
+    using System.Threading.Tasks;
+
     internal interface IMessageValidator
     {
-        void Validate(Message message);
+        Task ValidateAsync(Message message);
     }
 }

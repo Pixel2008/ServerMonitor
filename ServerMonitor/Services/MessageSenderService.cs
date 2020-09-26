@@ -6,6 +6,7 @@
     using ServerMonitor.Config;
     using ServerMonitor.Core;
     using ServerMonitor.Validators;
+    using System.Threading.Tasks;
 
     internal class MessageSenderService : IMessageSenderService, ITestMode
     {
@@ -33,7 +34,7 @@
         public double Interval => this.config.Value.MessageNotification.RunInterval;
         public double Delay => this.config.Value.MessageNotification.DelayStart;
 
-        public void DoWork()
+        public async Task DoWorkAsync()
         {
             int maxQuantity = this.config.Value.MessageNotification.Limit;
             logger.LogDebug($"maxQuantity={maxQuantity}");
@@ -41,7 +42,7 @@
             int counter = 0;
             while (counter++ < maxQuantity)
             {
-                var mail = this.messageQueueService.Dequeue();
+                var mail = await this.messageQueueService.DequeueAsync();
                 if (mail == null)
                 {
                     break;
@@ -49,13 +50,13 @@
 
                 this.logger.LogDebug(mail.Debug);
 
-                this.messageSender.SendMessage(mail);
+                await this.messageSender.SendMessageAsync(mail);
             }
         }
 
-        public void Validate()
+        public async Task ValidateAsync()
         {
-            this.messageNotificationValidator.Validate(this.config?.Value?.MessageNotification);
+            await this.messageNotificationValidator.ValidateAsync(this.config?.Value?.MessageNotification);
         }
         #endregion
     }

@@ -5,12 +5,13 @@
     using ServerMonitor.Services;
     using ServerMonitor.Tests.Builders;
     using ServerMonitor.Tests.Contexts;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class MessageSenderServiceTests : BaseTest<MessageSenderService, MessageSenderServiceContext>
     {
         [Test]
-        public void ValidationShouldBeExecutedOnce()
+        public async Task ValidationShouldBeExecutedOnce()
         {
             //Arrange            
             var from = "from";
@@ -32,14 +33,14 @@
             var service = this.Context.Build();
 
             //Act
-            service.Validate();
+            await service.ValidateAsync();
 
             //Assert
             this.Context.MessageNotificationValidatorMock.Verify_ValidateCalled(x => x.Enabled == true && x.From == from && x.Limit == limit && x.Display == display, Times.Once());
         }
 
         [Test]
-        public void WhenNoMessages_ShouldNotSend()
+        public async Task WhenNoMessages_ShouldNotSend()
         {
             //Arrange            
             var from = "from";
@@ -62,7 +63,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert
             this.Context.MessageQueueServiceMock.Verify_DequeueCalled(Times.Once());
@@ -70,7 +71,7 @@
         }
 
         [Test]
-        public void WhenMessages_ShouldSend()
+        public async Task WhenMessages_ShouldSend()
         {
             //Arrange   
             string title = "title";
@@ -100,7 +101,7 @@
             var service = this.Context.Build();
 
             //Act
-            service.DoWork();
+            await service.DoWorkAsync();
 
             //Assert
             this.Context.MessageQueueServiceMock.Verify_DequeueCalled(Times.Exactly(limit));

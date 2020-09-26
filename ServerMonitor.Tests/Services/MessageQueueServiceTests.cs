@@ -5,12 +5,13 @@
     using ServerMonitor.Services;
     using ServerMonitor.Tests.Builders;
     using ServerMonitor.Tests.Contexts;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class MessageQueueServiceTests : BaseTest<MessageQueueService, MessageQueueServiceContext>
     {
         [Test]
-        public void WhenEnqueue_ShouldEnqueueMessage()
+        public async Task WhenEnqueue_ShouldEnqueueMessage()
         {
             //Arrange
             string title = "title";
@@ -29,22 +30,22 @@
             var service = this.Context.Build();
 
             //Act
-            service.Enqueue(expected);
+            await service.EnqueueAsync(expected);
 
             //Assert
-            var actualMessage = service.Dequeue();
+            var actualMessage = await service.DequeueAsync();
             Assert.AreEqual(expected.Title, actualMessage.Title);
             Assert.AreEqual(expected.Content, actualMessage.Content);
         }
 
         [Test]
-        public void WhenDequeueWithNoMessages_ShouldReturnNull()
+        public async Task WhenDequeueWithNoMessages_ShouldReturnNull()
         {
             //Arrange
             var service = this.Context.Build();
 
             //Act
-            var expected = service.Dequeue();
+            var expected = await service.DequeueAsync();
 
             //Assert
             Assert.IsNull(expected);

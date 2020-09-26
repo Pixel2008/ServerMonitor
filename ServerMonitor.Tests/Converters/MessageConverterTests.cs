@@ -6,12 +6,13 @@
     using ServerMonitor.Tests.Builders;
     using ServerMonitor.Tests.Contexts;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     [TestFixture]
     internal class MessageConverterTests : BaseTest<MessageConverter, MessageConverterContext>
     {        
         [Test]
-        public void WhenMemoryMetricsWithAppConfigProvidedWithoutReportModeWithoutWarningWithoutTest_ShouldReturnNull()
+        public async Task WhenMemoryMetricsWithAppConfigProvidedWithoutReportModeWithoutWarningWithoutTest_ShouldReturnNull()
         {
             //Arrange
             var memoryConfig = new MemoryConfigBuilder()
@@ -33,14 +34,14 @@
                 .Build();
 
             //Act
-            var message = converter.Get(memoryMetrics);
+            var message = await converter.GetAsync(memoryMetrics);
 
             //Assert
             Assert.IsNull(message);
         }
 
         [Test]
-        public void WhenMemoryMetricsWithAppConfigProvidedWithReportMode_ShouldReturnMessage()
+        public async Task WhenMemoryMetricsWithAppConfigProvidedWithReportMode_ShouldReturnMessage()
         {
             //Arrange
             var memoryConfig = new MemoryConfigBuilder()
@@ -62,7 +63,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(memoryMetrics);
+            var message = await converter.GetAsync(memoryMetrics);
 
             //Assert
             Assert.AreEqual("RAM Memory", message.Title);
@@ -70,7 +71,7 @@
         }
 
         [Test]
-        public void WhenMemoryMetricsWithAppConfigProvidedWithWarning_ShouldReturnMessage()
+        public async Task WhenMemoryMetricsWithAppConfigProvidedWithWarning_ShouldReturnMessage()
         {
             //Arrange
             var memoryConfig = new MemoryConfigBuilder()
@@ -91,7 +92,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(memoryMetrics);
+            var message = await converter.GetAsync(memoryMetrics);
 
             //Assert
             Assert.AreEqual("Warning - RAM Memory", message.Title);
@@ -99,7 +100,7 @@
         }
 
         [Test]
-        public void WhenMemoryMetricsWithAppConfigProvidedWithTest_ShouldReturnMessage()
+        public async Task WhenMemoryMetricsWithAppConfigProvidedWithTest_ShouldReturnMessage()
         {
             //Arrange
             var memoryConfig = new MemoryConfigBuilder()
@@ -121,7 +122,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(memoryMetrics);
+            var message = await converter.GetAsync(memoryMetrics);
 
             //Assert
             Assert.AreEqual("RAM Memory", message.Title);
@@ -129,7 +130,7 @@
         }
 
         [Test]
-        public void WhenDiskDriveMetricsWithAppConfigProvidedWithoutReportModeWithoutWarningWithoutTest_ShouldReturnNull()
+        public async Task WhenDiskDriveMetricsWithAppConfigProvidedWithoutReportModeWithoutWarningWithoutTest_ShouldReturnNull()
         {
             //Arrange
             string path = @"c:\";
@@ -159,14 +160,14 @@
                 .Build();
 
             //Act
-            var message = converter.Get(diskDriveMetrics);
+            var message = await converter.GetAsync(diskDriveMetrics);
 
             //Assert
             Assert.IsNull(message);
         }
 
         [Test]
-        public void WhenDiskDriveMetricsWithAppConfigProvidedWithReportMode_ShouldReturnMessage()
+        public async Task WhenDiskDriveMetricsWithAppConfigProvidedWithReportMode_ShouldReturnMessage()
         {
             //Arrange
             string path = @"c:\";
@@ -196,7 +197,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(diskDriveMetrics);
+            var message = await converter.GetAsync(diskDriveMetrics);
 
             //Assert
             Assert.AreEqual($"DiskDrive - {path}", message.Title);
@@ -204,7 +205,7 @@
         }
 
         [Test]
-        public void WhenDiskDriveMetricsWithAppConfigProvidedWithWarning_ShouldReturnMessage()
+        public async Task WhenDiskDriveMetricsWithAppConfigProvidedWithWarning_ShouldReturnMessage()
         {
             //Arrange
             string path = @"c:\";
@@ -233,7 +234,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(diskDriveMetrics);
+            var message = await converter.GetAsync(diskDriveMetrics);
 
             //Assert
             Assert.AreEqual($"Warning - DiskDrive - {path}", message.Title);
@@ -241,7 +242,7 @@
         }
 
         [Test]
-        public void WhenDiskDriveMetricsWithAppConfigProvidedWithTest_ShouldReturnMessage()
+        public async Task WhenDiskDriveMetricsWithAppConfigProvidedWithTest_ShouldReturnMessage()
         {
             //Arrange
             string path = @"c:\";
@@ -271,7 +272,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(diskDriveMetrics);
+            var message = await converter.GetAsync(diskDriveMetrics);
 
             //Assert
             Assert.AreEqual($"DiskDrive - {path}", message.Title);
@@ -279,7 +280,7 @@
         }
 
         [Test]
-        public void WhenDiskDriveMetricsWithNotIsReadyWithAppConfigProvided_ShouldReturnMessage()
+        public async Task WhenDiskDriveMetricsWithNotIsReadyWithAppConfigProvided_ShouldReturnMessage()
         {
             //Arrange
             string path = @"c:\";
@@ -309,7 +310,7 @@
                 .Build();
 
             //Act
-            var message = converter.Get(diskDriveMetrics);
+            var message = await converter.GetAsync(diskDriveMetrics);
 
             //Assert
             Assert.AreEqual($"Warning - DiskDrive - {path}", message.Title);

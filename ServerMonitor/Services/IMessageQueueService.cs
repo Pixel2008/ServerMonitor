@@ -1,10 +1,11 @@
 ﻿namespace ServerMonitor.Services
 {
     using ServerMonitor.Domain;
+    using System.Threading.Tasks;
 
     internal interface IMessageQueueService
     {
-        void Enqueue(Message message);
-        Message Dequeue();
+        Task EnqueueAsync(Message message);
+        Task<Message> DequeueAsync();
     }
 }

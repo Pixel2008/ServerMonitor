@@ -20,7 +20,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(partition), Throws.Nothing);
+            Assert.That(() => validator.ValidateAsync(partition), Throws.Nothing);
         }
 
         [Test]
@@ -30,7 +30,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -43,7 +43,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -56,7 +56,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -70,7 +70,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -84,7 +84,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
     }
 }

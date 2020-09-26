@@ -1,9 +1,10 @@
-﻿using static ServerMonitor.Config.DiskDriveConfig;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using System.Threading.Tasks;
+    using static ServerMonitor.Config.DiskDriveConfig;
+
     internal interface IPartitionValidator
     {
-        void Validate(Partition partition);
+        Task ValidateAsync(Partition partition);
     }
 }

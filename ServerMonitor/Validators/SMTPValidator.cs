@@ -1,12 +1,13 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using System;
+    using System.Threading.Tasks;
+
     internal class SMTPValidator : ISMTPValidator
     {
-        public void Validate(SMTP smtp)
+        public Task ValidateAsync(SMTP smtp)
         {
             if (smtp == null)
             {
@@ -32,6 +33,7 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentOutOfRangeException(nameof(smtp.Timeout), $"Maximum value is {AppConsts.SMTP_TIMEOUT_MAX}");
             }
+            return Task.CompletedTask;
         }
     }
 }

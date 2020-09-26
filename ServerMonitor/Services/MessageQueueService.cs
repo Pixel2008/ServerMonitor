@@ -4,6 +4,7 @@
     using ServerMonitor.Components;
     using ServerMonitor.Domain;
     using System.Collections.Concurrent;
+    using System.Threading.Tasks;
 
     internal class MessageQueueService : IMessageQueueService
     {
@@ -23,20 +24,20 @@
         #endregion
 
         #region Methods
-        public void Enqueue(Message message)
+        public async Task EnqueueAsync(Message message)
         {
             this.logger.LogDebug($"Adding message to queue: {message.Debug}.");
-            var msg = this.messageDecorator.GetMessage(message);
+            var msg = await this.messageDecorator.GetMessageAsync(message);
             this.messages.Enqueue(msg);
         }
-        public Message Dequeue()
+        public Task<Message> DequeueAsync()
         {
             if (this.messages.TryDequeue(out Message message))
             {
                 this.logger.LogDebug($"Removing mail from queue: {message.Debug}.");
-                return message;
+                return Task.FromResult(message);
             }
-            return null;
+            return Task.FromResult<Message>(null);
         }
         #endregion
     }

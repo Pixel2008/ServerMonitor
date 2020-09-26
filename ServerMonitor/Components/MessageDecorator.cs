@@ -1,17 +1,23 @@
-﻿using ServerMonitor.Domain;
-using ServerMonitor.Extensions;
-using ServerMonitor.Tools;
-using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-
-namespace ServerMonitor.Components
+﻿namespace ServerMonitor.Components
 {
+    using ServerMonitor.Domain;
+    using ServerMonitor.Extensions;
+    using ServerMonitor.Tools;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.NetworkInformation;
+    using System.Threading.Tasks;
+
     internal class MessageDecorator : IMessageDecorator
     {
         #region Methods
-        public Message GetMessage(Message message)
+        public Task<Message> GetMessageAsync(Message message)
         {
+            if (message == null)
+            {
+                throw new NullReferenceException(nameof(message));
+            }
+
             var nl = "".NL();
             var m = new Message
             {
@@ -21,7 +27,7 @@ namespace ServerMonitor.Components
                 $"--{nl}" +
                 $"ServerMonitor {App.AppNameVersion()}"
             };
-            return m;
+            return Task.FromResult(m);
         }
         private IList<string> ContentSuffix()
         {

@@ -1,11 +1,12 @@
-﻿using ServerMonitor.Config;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using System;
+    using System.Threading.Tasks;
+
     internal class MessageRecipientValidator : IMessageRecipientValidator
     {
-        public void Validate(MessageRecipient messageRecipient)
+        public Task ValidateAsync(MessageRecipient messageRecipient)
         {
             if (messageRecipient == null)
             {
@@ -15,6 +16,7 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentNullException(nameof(messageRecipient.Address));
             }
+            return Task.CompletedTask;
         }
     }
 }

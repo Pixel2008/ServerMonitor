@@ -31,7 +31,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.Nothing);
+            Assert.That(() => validator.ValidateAsync(config), Throws.Nothing);
         }
 
         [Test]
@@ -41,7 +41,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(null), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -62,7 +62,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -84,7 +84,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -106,7 +106,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -122,7 +122,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.ArgumentNullException);
+            Assert.That(() => validator.ValidateAsync(config), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -143,7 +143,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -165,7 +165,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -187,7 +187,7 @@
             var validator = this.Context.Build();
 
             //Act / Assert
-            Assert.That(() => validator.Validate(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => validator.ValidateAsync(config), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
     }
 }

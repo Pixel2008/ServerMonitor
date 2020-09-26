@@ -1,12 +1,13 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using System;
+    using System.Threading.Tasks;
+
     internal class MemoryConfigValidator : IMemoryConfigValidator
     {
-        public void Validate(MemoryConfig config)
+        public Task ValidateAsync(MemoryConfig config)
         {
             if (config == null)
             {
@@ -39,6 +40,7 @@ namespace ServerMonitor.Validators
                     throw new ArgumentOutOfRangeException(nameof(config.MaxPercentageUsage), $"Maximum value is {AppConsts.PERCENT_MAX}");
                 }
             }
+            return Task.CompletedTask;
         }
     }
 }

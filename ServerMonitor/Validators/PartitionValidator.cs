@@ -1,12 +1,13 @@
-﻿using ServerMonitor.Config;
-using ServerMonitor.Consts;
-using System;
-
-namespace ServerMonitor.Validators
+﻿namespace ServerMonitor.Validators
 {
+    using ServerMonitor.Config;
+    using ServerMonitor.Consts;
+    using System;
+    using System.Threading.Tasks;
+
     internal class PartitionValidator : IPartitionValidator
     {
-        public void Validate(DiskDriveConfig.Partition partition)
+        public Task ValidateAsync(DiskDriveConfig.Partition partition)
         {
             if (partition == null)
             {
@@ -24,6 +25,7 @@ namespace ServerMonitor.Validators
             {
                 throw new ArgumentOutOfRangeException(nameof(partition.MaxPercentageUsage), $"Maximum value is {AppConsts.PERCENT_MAX}");
             }
+            return Task.CompletedTask;
         }
     }
 }
