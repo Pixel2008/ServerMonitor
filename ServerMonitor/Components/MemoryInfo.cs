@@ -10,12 +10,18 @@
     {
         public Task<MemoryMetrics> GetMemoryMetricsAsync()
         {
-            if (OS.IsWindows())
+            if (OS.IsWindows)
+            {
                 return WindowsMetricsAsync();
-            else if (OS.IsLinux())
+            }
+            else if (OS.IsLinux)
+            {
                 return LinuxMetricsAsync();
+            }
             else
+            {
                 throw new NotSupportedException("OS not supported!");
+            }
         }
 
         private Task<MemoryMetrics> WindowsMetricsAsync()
@@ -34,8 +40,8 @@
 
             var metrics = new Domain.MemoryMetrics()
             {
-                Free = double.Parse(lines[0].Split("=", StringSplitOptions.RemoveEmptyEntries)[1])*1024,
-                Total = double.Parse(lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries)[1])*1024                
+                Free = double.Parse(lines[0].Split("=", StringSplitOptions.RemoveEmptyEntries)[1]) * 1024,
+                Total = double.Parse(lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries)[1]) * 1024
             };
 
             return Task.FromResult(metrics);
