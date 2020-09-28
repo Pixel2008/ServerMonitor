@@ -7,23 +7,15 @@ namespace ServerMonitor
     using ServerMonitor.Config;
     using ServerMonitor.Extensions;
     using ServerMonitor.Installers;
+    using ServerMonitor.Tools;
     using System;
-    using System.Linq;
 
     public class Program
-    {
-        private const string DOTNET_ENVIRONMENT = "DOTNET_ENVIRONMENT";
-        private static bool IsDevelopment => Environment.GetEnvironmentVariable(DOTNET_ENVIRONMENT) == "Development";
-
+    {        
         public static void Main(string[] args)
         {
             Environment.SetEnvironmentVariable("BASEDIR", AppDomain.CurrentDomain.BaseDirectory, EnvironmentVariableTarget.Process);
-
-            if (args.Contains("--configure", StringComparer.OrdinalIgnoreCase))
-            {
-                //new ConfigGenerator().Start();
-                return;
-            }
+          
             var configuration = GetConfiguration();
             Log.Logger = GetLogger(configuration);
             
@@ -39,7 +31,7 @@ namespace ServerMonitor
             return new ConfigurationBuilder()
                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable(DOTNET_ENVIRONMENT) ?? "Production"}.json", optional: true)
+               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable(App.DOTNET_ENVIRONMENT) ?? "Production"}.json", optional: true)
                .AddEnvironmentVariables()
                .Build();
         }

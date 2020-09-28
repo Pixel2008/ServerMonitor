@@ -1,11 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Worker">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>ServerMonitor.Program</StartupObject>
     <SignAssembly>false</SignAssembly>
+    <UserSecretsId>34ea3158-c041-4918-bfe9-1a6ab39c33ea</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.5.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.2" />
